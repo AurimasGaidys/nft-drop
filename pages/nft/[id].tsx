@@ -1,6 +1,12 @@
 import React from 'react'
-
+import { useAddress, useMetamask, useDisconnect } from "@thirdweb-dev/react"
 function NFTDropPage() {
+
+    // const address = useAddress();
+    const connectWithMetamask = useMetamask();
+    const address = useAddress();
+    const disconnect = useDisconnect();
+
     return (
         <div className='flex h-screen flex-col lg:grid lg:grid-cols-10' >
             {/* Left here*/}
@@ -26,9 +32,13 @@ function NFTDropPage() {
                     <h1 className='w-52 cursor-pointer text-xl font-extralight sm:w-80'>
                         The{" "}<span className='font-extrabold underline decoration-violet-600/50'>NFT</span>{" "}marketplace
                     </h1>
-                    <button className='rounded-full bg-red-400 px-4 py-2 text-xs font-bold text-white lg:px-5 lg:py-3 lg:text-base'>Sign In</button>
+                    <button onClick={() => { address ? disconnect() : connectWithMetamask() }} className='rounded-full bg-red-400 px-4 py-2 text-xs font-bold text-white lg:px-5 lg:py-3 lg:text-base'>{address ? "Sign Out" : "Sign In"}</button>
                 </div>
                 <hr className='m-2 border' />
+                {address && (
+                    <p className='text-center text-sm text-red-500'>You are logged in with wallet {address.substring(0, 5)}...{address.substring(address.length, -5)}</p>
+                )}
+
                 {/* body here*/}
                 <div className='mt-10 flex flex-1 flex-col items-center space-y-6 text-center lg:space-y-0  lg:justify-center'>
                     <img className='w-80 object-cover pb-10 lg:h-40' src={"https://niftys.com/_next/image?url=https%3A%2F%2Fmedia.niftys.com%2Faccounts%2Fckqzi9r8l0124pdt0hvs81z0d%2Fmedia%2Fbanner-huBRgAO-KiAH-jDIhrHP8&w=1920&q=75"} alt={"asdasd asd "} />
@@ -38,7 +48,7 @@ function NFTDropPage() {
                     <p className='pt-2 text-green-500 '>2/25 NFT claimed</p>
                 </div>
                 {/* Mint button here*/}
-                <button className='mt-10 h-16 bg-red-500 w-full text-white rounded-full'>Mint nft (0.1 ETH)</button>
+                <button onClick={() => { }} className='mt-10 h-16 bg-red-500 w-full text-white rounded-full font-bold'>Mint nft (0.1 ETH)</button>
                 <div>
                 </div>
             </div>
